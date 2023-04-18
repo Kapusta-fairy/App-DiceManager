@@ -4,6 +4,10 @@
     spacing: 20
     padding: 20
 
+    count_input: count_input
+    sides_input: sides_input
+    result: result
+
     MDBoxLayout:
         spacing: 10
 
@@ -11,6 +15,7 @@
             icon: 'dice-d20'
 
         MDTextField:
+            id: count_input
             text: '1'
             multiline: False
             input_type: 'number'
@@ -20,7 +25,7 @@
             icon: 'alpha-d'
 
         MDTextField:
-            id: sides
+            id: sides_input
             multiline: False
 
         MDRectangleFlatIconButton:
@@ -40,6 +45,10 @@
         size_hint: 1, None
         text: 'результат'
 
+        on_release:
+            root.view_throws()
+
 
     MDLabel:
+        id: result
         text: '(16) 1 ранение'
