@@ -1,6 +1,45 @@
 <Container>:
     font_size: 25
     orientation: "vertical"
+    spacing: 20
+    padding: 20
+
+    MDBoxLayout:
+        spacing: 10
+
+        MDIconButton:
+            icon: 'dice-d20'
+
+        MDTextField:
+            text: '1'
+            multiline: False
+            input_type: 'number'
+            input_filter: 'int'
+
+        MDIconButton:
+            icon: 'alpha-d'
+
+        MDTextField:
+            id: sides
+            multiline: False
+
+        MDRectangleFlatIconButton:
+            icon: 'minus'
+            size_hint: 1, None
+            text: 'удалить'
+
+
+    MDRectangleFlatIconButton:
+        icon: "plus"
+        size_hint: 1, None
+        text: 'добавить'
+
+
+    MDRectangleFlatIconButton:
+        icon: "equal"
+        size_hint: 1, None
+        text: 'результат'
+
 
     MDLabel:
-        text: ""
+        text: '(16) 1 ранение'
