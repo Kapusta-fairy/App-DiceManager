@@ -1,44 +1,49 @@
+<DicePanel>:
+    spacing: 10
+
+    MDIconButton:
+        icon: 'dice-d20'
+
+    MDTextField:
+        id: count_input
+        text: '1'
+        multiline: False
+        input_type: 'number'
+        input_filter: 'int'
+
+    MDIconButton:
+        icon: 'alpha-d'
+
+    MDTextField:
+        id: sides_input
+        multiline: False
+        input_type: 'number'
+        input_filter: 'int'
+
+    MDRectangleFlatIconButton:
+        icon: 'minus'
+        size_hint: 1, None
+        text: 'удалить'
+
+        on_release:
+            root.remove()
+
+
 <Container>:
     font_size: 25
     orientation: "vertical"
     spacing: 20
     padding: 20
 
-    count_input: count_input
-    sides_input: sides_input
     result: result
-
-    MDBoxLayout:
-        spacing: 10
-
-        MDIconButton:
-            icon: 'dice-d20'
-
-        MDTextField:
-            id: count_input
-            text: '1'
-            multiline: False
-            input_type: 'number'
-            input_filter: 'int'
-
-        MDIconButton:
-            icon: 'alpha-d'
-
-        MDTextField:
-            id: sides_input
-            multiline: False
-
-        MDRectangleFlatIconButton:
-            icon: 'minus'
-            size_hint: 1, None
-            text: 'удалить'
-
 
     MDRectangleFlatIconButton:
         icon: "plus"
         size_hint: 1, None
         text: 'добавить'
 
+        on_release:
+            root.add_dice()
 
     MDRectangleFlatIconButton:
         icon: "equal"
@@ -51,4 +56,4 @@
 
     MDLabel:
         id: result
-        text: '(16) 1 ранение'
+        text: ''
