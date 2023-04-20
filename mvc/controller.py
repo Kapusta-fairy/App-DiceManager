@@ -45,7 +45,7 @@ class Container(MDBoxLayout):
     @staticmethod
     def __parse_injured():
         injured_dict = dict()
-        with open('injured.txt', 'r') as file:
+        with open('injured.txt', 'r', encoding='utf8') as file:
             injured = file.read()
         for i in injured.split('\n'):
             i = i.split('=')
