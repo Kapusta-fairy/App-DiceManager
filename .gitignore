@@ -1,1 +1,6 @@
 .idea
+dist
+build
+dice.ico
+WoundCalculator.spec
+PyInstaller.spec
