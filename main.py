@@ -1,6 +1,6 @@
 from kivy.config import Config
 Config.set('graphics', 'width', '420')
-Config.set('graphics', 'height', '260')
+Config.set('graphics', 'height', '360')
 Config.set('graphics', 'minimum_width', '420')
 Config.set('graphics', 'minimum_height', '260')
 
