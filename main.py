@@ -8,14 +8,15 @@ from mvc.controller import Container
 class MainApp(MDApp):
     title = 'Калькулятор ранений'
 
-    def __init__(self):
-        super().__init__()
-        Builder.load_file('mvc/view.kv')
+    def build(self):
         Window.size = (420, 360)
         Window.minimum_width = 420
         Window.minimum_height = 260
 
-    def build(self):
+        Builder.load_file('mvc/view.kv')
+        self.icon = 'icon.png'
+        self.theme_cls.primary_palette = "Gray"
+
         return Container()
 
 
