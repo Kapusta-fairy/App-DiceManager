@@ -1,20 +1,13 @@
-import os
-os.environ['KIVY_NO_CONSOLELOG'] = '1'
-from random import randint
+from os import environ
 
+environ['KIVY_NO_CONSOLELOG'] = '1'
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.core.window import Window
+
 from kivymd.uix.boxlayout import MDBoxLayout
 
-
-class DicePanel(MDBoxLayout):
-
-    def remove(self) -> bool:
-        Container().remove_dice_panel(self)
-        self.parent.remove_widget(self)
-
-        return True
+from random import randint
 
 
 class Dice(object):
@@ -79,11 +72,21 @@ class Wound(object):
         return f'{self._count} ранений'
 
 
+class DicePanel(MDBoxLayout):
+
+    def remove(self) -> bool:
+        Container().remove_dice_panel(self)
+        self.parent.remove_widget(self)
+
+        return True
+
+
 class Container(MDBoxLayout):
     _dice_panels = list()
 
     def __init__(self):
         super().__init__()
+        self.add_dice_panel()
         self.wound = None
 
     def remove_dice_panel(self, dice_panel: DicePanel) -> bool:
@@ -117,34 +120,41 @@ class Container(MDBoxLayout):
 class MainApp(MDApp):
     title = 'Калькулятор ранений'
 
-    def __init__(self):
-        super().__init__()
+    def build(self):
+        Window.size = (420, 360)
+        Window.minimum_width = 420
+        Window.minimum_height = 260
+
         Builder.load_string('''
 <DicePanel>:
     spacing: 10
 
-    MDIconButton:
-        icon: 'dice-d20'
-
     MDTextField:
         id: count_input
+        icon_left: 'dice-d20'
+        icon_left_color_normal: 'red'
+        icon_left_color_focus: 'red'
+        hint_text: "Количество"
+        hint_text_mode: "on_focus"
         text: '1'
         multiline: False
         input_type: 'number'
         input_filter: 'int'
 
-    MDIconButton:
-        icon: 'alpha-d'
-
     MDTextField:
         id: sides_input
+        hint_text: "Грани"
+        hint_text_mode: "on_focus"
         multiline: False
         input_type: 'number'
+        text_color: 'black'
         input_filter: 'int'
 
     MDRectangleFlatIconButton:
         icon: 'minus'
+        theme_text_color: "Custom"
         size_hint: 1, None
+        text_color: 'black'
         text: 'удалить'
 
         on_release:
@@ -162,6 +172,7 @@ class MainApp(MDApp):
     MDRectangleFlatIconButton:
         icon: "plus"
         size_hint: 1, None
+        text_color: 'black'
         text: 'добавить'
 
         on_release:
@@ -170,6 +181,7 @@ class MainApp(MDApp):
     MDRectangleFlatIconButton:
         icon: "equal"
         size_hint: 1, None
+        text_color: 'black'
         text: 'результат'
 
         on_release:
@@ -179,13 +191,10 @@ class MainApp(MDApp):
     MDLabel:
         id: result
         text: ''
+''')
+        self.icon = 'icon.ico'
+        self.theme_cls.primary_palette = "Gray"
 
-        ''')
-        Window.size = (420, 360)
-        Window.minimum_width = 420
-        Window.minimum_height = 260
-
-    def build(self):
         return Container()
 
 
