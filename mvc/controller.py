@@ -1,61 +1,47 @@
 from kivymd.uix.boxlayout import MDBoxLayout
 
-from mvc.model import Dice
+from mvc.model import Dice, Wound
 
 
 class DicePanel(MDBoxLayout):
 
-    def remove(self):
-        Container.dices.remove(self)
+    def remove(self) -> bool:
+        Container().remove_dice_panel(self)
         self.parent.remove_widget(self)
+
+        return True
 
 
 class Container(MDBoxLayout):
-    dices = list()
+    _dice_panels = list()
 
     def __init__(self):
         super().__init__()
-        self.injured = self.__parse_injured()
+        self.wound = None
+
+    def remove_dice_panel(self, dice_panel: DicePanel) -> bool:
+        self._dice_panels.remove(dice_panel)
+
+        return True
 
     def view_throws(self) -> str:
-        result = 0
+        self.wound = Wound()
+        dices_result: list = []
 
-        for dice_panel in self.dices:
+        for dice_panel in self._dice_panels:
             sides: str = dice_panel.ids.sides_input.text
             count: str = dice_panel.ids.count_input.text
             if sides not in ['', '0'] and count not in ['', '0']:
                 dice: Dice = Dice(int(sides))
-                result += sum([dice.throw() for _ in range(int(count))])
+                [dices_result.append(dice.throw()) for _ in range(int(count))]
 
-        self.result.text = self.create_result_string(result)
-        return self.result.text
+        self.wound.calculate_wounds(dices_result)
+        self.result.text = f'{self.wound}'
+        return f'{self.result.text}'
 
-    def add_dice(self):
-        new_dice = DicePanel()
-        self.dices.append(new_dice)
-        self.add_widget(new_dice, index=3)
+    def add_dice_panel(self) -> Dice:
+        new_dice_panel = DicePanel()
+        self._dice_panels.append(new_dice_panel)
+        self.add_widget(new_dice_panel, index=3)
 
-    def create_result_string(self, result) -> str:
-        if len(self.injured) - 1 > result:
-            inj = self.injured[result]
-        else:
-            inj = self.injured[len(self.injured) - 1]
-        return f'{inj}({result})'
-
-    @staticmethod
-    def __parse_injured():
-        injured_dict = dict()
-        with open('injured.txt', 'r', encoding='utf8') as file:
-            injured = file.read()
-        for i in injured.split('\n'):
-            i = i.split('=')
-            injured_dict[int(i[0].strip())] = i[1].strip()
-
-        temp_list = []
-        temp_value = 'Нет результата'
-        for index in range(max(injured_dict) + 1):
-            if index in injured_dict:
-                temp_value = injured_dict.get(index)
-            temp_list.append(temp_value)
-
-        return temp_list
+        return new_dice_panel
