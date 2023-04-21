@@ -17,6 +17,7 @@ class Container(MDBoxLayout):
 
     def __init__(self):
         super().__init__()
+        self.add_dice_panel()
         self.wound = None
 
     def remove_dice_panel(self, dice_panel: DicePanel) -> bool:
