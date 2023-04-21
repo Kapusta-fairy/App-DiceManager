@@ -1,5 +1,6 @@
 # Калькулятор ранений
 #### Приложение для windows.
+## [Скачать](https://disk.yandex.ru/d/bEaN9NYizngYlQ)
 ![image](https://user-images.githubusercontent.com/106178214/233623822-1b4946cc-c8fe-4237-94de-d186fcc97d8e.png)
 
 ---
