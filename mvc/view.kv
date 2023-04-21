@@ -1,28 +1,32 @@
 <DicePanel>:
     spacing: 10
 
-    MDIconButton:
-        icon: 'dice-d20'
-
     MDTextField:
         id: count_input
+        icon_left: 'dice-d20'
+        icon_left_color_normal: 'red'
+        icon_left_color_focus: 'red'
+        hint_text: "Количество"
+        hint_text_mode: "on_focus"
         text: '1'
         multiline: False
         input_type: 'number'
         input_filter: 'int'
 
-    MDIconButton:
-        icon: 'alpha-d'
-
     MDTextField:
         id: sides_input
+        hint_text: "Грани"
+        hint_text_mode: "on_focus"
         multiline: False
         input_type: 'number'
+        text_color: 'black'
         input_filter: 'int'
 
     MDRectangleFlatIconButton:
         icon: 'minus'
+        theme_text_color: "Custom"
         size_hint: 1, None
+        text_color: 'black'
         text: 'удалить'
 
         on_release:
@@ -40,6 +44,7 @@
     MDRectangleFlatIconButton:
         icon: "plus"
         size_hint: 1, None
+        text_color: 'black'
         text: 'добавить'
 
         on_release:
@@ -48,6 +53,7 @@
     MDRectangleFlatIconButton:
         icon: "equal"
         size_hint: 1, None
+        text_color: 'black'
         text: 'результат'
 
         on_release:
