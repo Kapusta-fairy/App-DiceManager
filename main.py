@@ -1,3 +1,5 @@
+from os import environ
+environ['KIVY_NO_CONSOLELOG'] = '1'
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.core.window import Window
@@ -14,7 +16,7 @@ class MainApp(MDApp):
         Window.minimum_height = 260
 
         Builder.load_file('mvc/view.kv')
-        self.icon = 'icon.png'
+        self.icon = 'icon.ico'
         self.theme_cls.primary_palette = "Gray"
 
         return Container()
