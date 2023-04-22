@@ -2,12 +2,22 @@ from random import randint
 
 
 class Dice(object):
+    """Dice that you can throw.
 
+    Methods:
+    throw()
+
+    :param sides: faces of dice
+    """
     def __init__(self, sides: int):
         self._sides: int = sides
         self._last_throw: int = 0
 
     def throw(self) -> int:
+        """Produce a dice roll.
+
+        :return: the result of the throw
+        """
         return randint(1, self._sides)
 
     def __str__(self):
@@ -15,7 +25,15 @@ class Dice(object):
 
 
 class Wound(object):
+    """An object for working with wounds
 
+    len() return count
+
+    Methods:
+    calculate_wounds()
+
+    :param count: count of wounds
+    """
     def __init__(self, count: int = 0):
         _wounds_file_path = 'wounds.txt'
 
@@ -23,6 +41,10 @@ class Wound(object):
         self._wounds_list: list = self._create_wounds_list(_wounds_file_path)
 
     def calculate_wounds(self, dices_result: list) -> float:
+        """Set wounds for dices_result.
+
+        :return: count of wounds
+        """
         for dice_result in dices_result:
             if len(self._wounds_list) - 1 > dice_result:
                 self._count += self._wounds_list[dice_result]

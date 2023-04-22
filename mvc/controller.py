@@ -4,8 +4,16 @@ from mvc.model import Dice, Wound
 
 
 class DicePanel(MDBoxLayout):
+    """Widget for displaying dice.
 
+    Methods:
+    remove()
+    """
     def remove(self) -> bool:
+        """Delete itself.
+
+        :return: True
+        """
         Container().remove_dice_panel(self)
         self.parent.remove_widget(self)
 
@@ -13,6 +21,13 @@ class DicePanel(MDBoxLayout):
 
 
 class Container(MDBoxLayout):
+    """The base container for the entire application.
+
+    Methods:
+    view_throws()
+    remove_dice_panel(dice_panel)
+    add_dice_panel()
+    """
     _dice_panels = list()
 
     def __init__(self):
@@ -20,12 +35,11 @@ class Container(MDBoxLayout):
         self.add_dice_panel()
         self.wound = None
 
-    def remove_dice_panel(self, dice_panel: DicePanel) -> bool:
-        self._dice_panels.remove(dice_panel)
-
-        return True
-
     def view_throws(self) -> str:
+        """Show the result of the roll of the selected dice.
+
+        :return: the result displayed on the screen
+        """
         self.wound = Wound()
         dices_result: list = []
 
@@ -40,7 +54,20 @@ class Container(MDBoxLayout):
         self.result.text = f'{self.wound}'
         return f'{self.result.text}'
 
+    def remove_dice_panel(self, dice_panel: DicePanel) -> bool:
+        """Delete the received object from itself.
+
+        :return: True
+        """
+        self._dice_panels.remove(dice_panel)
+
+        return True
+
     def add_dice_panel(self) -> Dice:
+        """Add a new dice panel to itself.
+
+        :return: added dice panel
+        """
         new_dice_panel = DicePanel()
         self._dice_panels.append(new_dice_panel)
         self.add_widget(new_dice_panel, index=3)
